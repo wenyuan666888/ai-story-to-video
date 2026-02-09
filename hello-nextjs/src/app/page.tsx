@@ -1,5 +1,6 @@
 import { Header } from "@/components/layout/Header";
 import { createClient } from "@/lib/supabase/server";
+import Link from "next/link";
 
 export default async function Home() {
   const supabase = await createClient();
@@ -25,34 +26,34 @@ export default async function Home() {
                 欢迎回来，{user.email}
               </p>
               <div className="flex gap-4">
-                <a
+                <Link
                   href="/projects"
                   className="flex h-12 items-center justify-center rounded-lg bg-zinc-900 px-6 text-sm font-medium text-zinc-50 transition-colors hover:bg-zinc-800 dark:bg-zinc-50 dark:text-zinc-900 dark:hover:bg-zinc-200"
                 >
                   查看我的项目
-                </a>
-                <a
+                </Link>
+                <Link
                   href="/create"
                   className="flex h-12 items-center justify-center rounded-lg border border-zinc-300 bg-white px-6 text-sm font-medium text-zinc-900 transition-colors hover:bg-zinc-100 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100 dark:hover:bg-zinc-800"
                 >
                   创建新项目
-                </a>
+                </Link>
               </div>
             </div>
           ) : (
             <div className="flex justify-center gap-4">
-              <a
+              <Link
                 href="/login"
                 className="flex h-12 items-center justify-center rounded-lg bg-zinc-900 px-6 text-sm font-medium text-zinc-50 transition-colors hover:bg-zinc-800 dark:bg-zinc-50 dark:text-zinc-900 dark:hover:bg-zinc-200"
               >
                 登录
-              </a>
-              <a
+              </Link>
+              <Link
                 href="/register"
                 className="flex h-12 items-center justify-center rounded-lg border border-zinc-300 bg-white px-6 text-sm font-medium text-zinc-900 transition-colors hover:bg-zinc-100 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100 dark:hover:bg-zinc-800"
               >
                 注册
-              </a>
+              </Link>
             </div>
           )}
         </div>
