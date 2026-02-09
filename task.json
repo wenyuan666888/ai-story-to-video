@@ -268,7 +268,7 @@
         "创建 app/api/scenes/confirm-all-videos/route.ts",
         "POST 确认所有分镜视频，更新项目 stage 为 'completed'"
       ],
-      "passes": false
+      "passes": true
     },
     {
       "id": 19,

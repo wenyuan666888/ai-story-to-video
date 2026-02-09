@@ -1,5 +1,44 @@
 # Progress Log
 
+## 2026-02-10 - Task 18: 确认 API - 分镜和媒体确认
+
+### What was done:
+- 创建 app/api/scenes/[id]/confirm-description/route.ts
+  - POST /api/scenes/:id/confirm-description 确认单个分镜描述
+- 创建 app/api/scenes/confirm-all-descriptions/route.ts
+  - POST /api/scenes/confirm-all-descriptions 确认所有分镜描述
+- 创建 app/api/scenes/[id]/confirm-image/route.ts
+  - POST /api/scenes/:id/confirm-image 确认单个分镜图片
+  - 验证图片状态为 completed 才能确认
+- 创建 app/api/scenes/confirm-all-images/route.ts
+  - POST /api/scenes/confirm-all-images 确认所有分镜图片
+- 创建 app/api/scenes/[id]/confirm-video/route.ts
+  - POST /api/scenes/:id/confirm-video 确认单个分镜视频
+  - 验证视频状态为 completed 才能确认
+- 创建 app/api/scenes/confirm-all-videos/route.ts
+  - POST /api/scenes/confirm-all-videos 确认所有分镜视频
+  - 自动更新项目 stage 为 'completed'
+
+### Testing:
+- 运行 npm run lint 通过
+- 运行 npm run build 构建成功
+- API 端点已注册：
+  - ƒ /api/scenes/[id]/confirm-description
+  - ƒ /api/scenes/[id]/confirm-image
+  - ƒ /api/scenes/[id]/confirm-video
+  - ƒ /api/scenes/confirm-all-descriptions
+  - ƒ /api/scenes/confirm-all-images
+  - ƒ /api/scenes/confirm-all-videos
+
+### Notes:
+- 所有 API 都需要用户登录，未登录返回 401
+- 所有操作验证用户项目所有权，无权限返回 403
+- 图片/视频确认前检查状态是否为 completed
+- 确认所有视频后自动将项目标记为 completed
+- 使用 scenes.ts 数据访问层中已有的确认函数
+
+---
+
 ## 2026-02-10 - Task 17: 生成 API - 视频生成
 
 ### What was done:
