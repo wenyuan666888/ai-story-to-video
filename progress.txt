@@ -1,5 +1,36 @@
 # Progress Log
 
+## 2026-02-10 - Task 12: 分镜数据访问层
+
+### What was done:
+- 创建 lib/db/scenes.ts 分镜数据访问层
+  - createScenes() - 批量创建分镜
+  - getScenesByProjectId() - 获取项目的分镜列表
+  - getScenesWithMediaByProjectId() - 获取分镜及其媒体
+  - getSceneById() - 获取单个分镜
+  - updateSceneDescription() - 更新分镜描述
+  - confirmSceneDescription() / confirmAllDescriptions() - 确认描述
+  - confirmSceneImage() / confirmAllImages() - 确认图片
+  - confirmSceneVideo() / confirmAllVideos() - 确认视频
+  - updateSceneImageStatus() / updateSceneVideoStatus() - 更新状态
+  - resetSceneImageStatus() / resetSceneVideoStatus() - 重置状态（重新生成用）
+  - deleteScenesByProjectId() - 删除所有分镜（重新生成时用）
+  - getConfirmedDescriptionCount() / getCompletedImageCount() / getCompletedVideoCount() - 统计数量
+  - 自定义错误类 SceneError
+
+### Testing:
+- 运行 npm run lint 通过
+- 运行 npm run build 构建成功
+- TypeScript 类型检查通过
+
+### Notes:
+- 分镜创建时自动设置默认状态（description_confirmed=false, image/video_status=pending）
+- 确认操作支持单个和批量
+- 删除分镜依赖数据库级联删除清理关联的 images 和 videos
+- 提供了重置状态的辅助函数，用于重新生成场景
+
+---
+
 ## 2026-02-10 - Task 11: 项目数据访问层
 
 ### What was done:
