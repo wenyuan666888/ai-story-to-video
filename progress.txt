@@ -1,5 +1,33 @@
 # Progress Log
 
+## 2026-02-10 - Bug Fix: 确认所有图片/视频后不跳转到下一阶段
+
+### 问题描述:
+确认所有图片后没有跳转到第四步（视频生成阶段），确认所有视频后也没有跳转到完成状态。
+
+### 根本原因:
+`SceneImageList.tsx` 和 `SceneVideoList.tsx` 中的 `handleConfirmAll` 函数只更新了本地 React 状态，没有刷新页面来获取更新后的项目阶段。
+
+### What was done:
+1. **components/scene/SceneImageList.tsx**:
+   - 修改 `handleConfirmAll` 函数
+   - 确认成功后使用 `window.location.reload()` 刷新页面
+   - 移除 `finally` 块中的 `setIsConfirmingAll(false)`
+
+2. **components/scene/SceneVideoList.tsx**:
+   - 同样修改 `handleConfirmAll` 函数
+   - 确认成功后刷新页面
+
+### Testing:
+- ✅ npm run lint 通过
+
+### Notes:
+- 与之前修复的 `SceneDescriptionList.tsx` 问题相同
+- 所有三个阶段的"确认全部"按钮现在都会在成功后刷新页面
+- 页面刷新确保服务端渲染的内容反映最新的项目阶段
+
+---
+
 ## 2026-02-10 - Bug Fix: 强制使用 dark mode
 
 ### 问题描述:
