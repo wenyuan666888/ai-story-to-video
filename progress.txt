@@ -1,5 +1,41 @@
 # Progress Log
 
+## 2026-02-10 - Task 28: 错误处理和边界情况
+
+### What was done:
+- 创建 app/error.tsx 全局错误页面
+  - 显示错误信息
+  - 提供重试和返回首页按钮
+- 创建 app/not-found.tsx 404 页面
+  - 显示 404 标识
+  - 提供返回首页和查看项目按钮
+- 创建 app/projects/[id]/error.tsx 项目错误边界
+  - 专门处理项目详情页的错误
+  - 提供重试和返回项目列表按钮
+- 创建 components/ui/Toast.tsx Toast 通知组件
+  - 支持 success、error、info 三种类型
+  - 自动 5 秒后消失
+  - 可手动关闭
+- 创建 components/providers/Providers.tsx 客户端 Provider 包装组件
+- 更新 app/layout.tsx
+  - 添加 ToastProvider
+  - 更新 metadata 标题和描述
+
+### Testing:
+- 运行 npm run lint 通过
+- 运行 npm run build 构建成功
+- ✅ 浏览器测试通过（使用 MCP Playwright）：
+  - 404 页面正确显示
+  - 访问不存在的项目返回 404
+  - 页面标题和描述正确更新
+
+### Notes:
+- API 错误格式在之前的 API 任务中已统一实现
+- 生成失败时的重试按钮在 SceneImageCard 和 SceneVideoCard 中已实现
+- Toast 组件可在任意客户端组件中使用 useToast hook
+
+---
+
 ## 2026-02-10 - Task 27: 项目详情页 - 实时状态更新
 
 ### What was done:
