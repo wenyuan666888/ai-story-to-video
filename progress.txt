@@ -1,5 +1,50 @@
 # Progress Log
 
+## 2026-02-15 - 完整流程测试与修复（一只小白兔在追大灰狼）
+
+### What was done:
+- **Mock 分镜**：单句故事（如「一只小白兔在追大灰狼」）会按开场/发展/高潮/结尾扩展为 4～5 个分镜描述，避免重复同一句。
+- **完成页**：`CompletedStageView` 按 `version` 取每个分镜最新视频，并加上 `playsInline`、`preload="metadata"`，无视频时显示「暂无视频」。
+- **视频阶段**：`VideosStageView` 使用 `needGenerate`（需生成且未生成的分镜数）控制「生成所有视频」按钮，并用 `latestVideo()` 展示最新视频。
+- **图片阶段**：`ImagesStageView` 使用 `latestImage()` 展示最新图片，描述过长时截断显示。
+
+### 手动测试步骤（故事：一只小白兔在追大灰狼）:
+1. 启动 `cd story-to-video-app && npm run dev`，打开 http://localhost:3000
+2. 登录/注册后点击「创建新项目」
+3. 标题填「小白兔追大灰狼」，故事填「一只小白兔在追大灰狼」，风格任选 → 提交
+4. 在项目详情页点击「生成分镜」→ 确认分镜列表后点击「确认全部分镜」
+5. 点击「生成所有图片」（火山引擎或 Unsplash/占位）→ 确认后点击「确认所有图片」
+6. 点击「生成所有视频」→ 确认后点击「确认所有视频 · 完成项目」
+7. 完成页应展示各分镜视频可播放；若有问题再根据报错排查。
+
+### Testing:
+- ✅ npm run lint 通过
+- ✅ npm run build 成功
+
+---
+
+## 2026-02-15 - 测试与 Lint 修复（story-to-video-app）
+
+### What was done:
+- 移除火山引擎后运行完整测试直至满足项目要求。
+- **Lint 修复**：
+  - `src/app/projects/page.tsx`：移除未使用的 `total` 解构。
+  - `src/lib/db/media.ts`：移除未使用的 `Video` 类型导入。
+  - `src/components/project/ImagesStageView.tsx`：为外部 Picsum 图片的 `<img>` 添加 eslint-disable 注释。
+- **单分镜视频 API**：`api/generate/video/[sceneId]/route.ts` 为 `createVideo` 传入 `orderIndex`（从场景的 `order_index` 读取），保证单分镜生成也使用对应序号示例视频。
+
+### Testing:
+- ✅ `npm run lint` 通过（0 errors, 0 warnings）
+- ✅ `npm run build` 成功（Next.js 16.1.6）
+- ✅ 开发服务器启动正常，首页返回 200
+- ✅ 未登录访问 `/api/projects` 返回 401，认证保护正常
+
+### Notes:
+- 完整 E2E（注册→登录→创建项目→分镜→图片→视频→完成）需在配置好 Supabase 与可选 OPENAI 后于浏览器中手动或自动化执行。
+- task.json 中 31 项任务均已 passes: true；本次验证针对 story-to-video-app 的 lint/build 与基础接口。
+
+---
+
 ## 2026-02-10 - Bug Fix: 视频/图片生成卡在"生成中"状态
 
 ### 问题描述:
